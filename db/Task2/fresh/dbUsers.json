@@ -1,0 +1,17 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Viktor",
+    "IsLoggedIn": true
+  },
+  {
+    "Id": 2,
+    "Name": "Petko",
+    "IsLoggedIn": false
+  },
+  {
+    "Id": 3,
+    "Name": "Trajko",
+    "IsLoggedIn": false
+  }
+]

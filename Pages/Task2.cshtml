@@ -1,0 +1,143 @@
+﻿@page
+
+@using Squadron.Services
+@using Squadron.DTO.Task2
+
+@model Task2Model
+@{
+    ViewData["Title"] = "Squadron Task 2";
+    ViewData["Users"] = DbService.LoadDbFile<User>("/Task2/dbUsers.json", out string usersDbFilePath);
+    ViewData["Equations"] = DbService.LoadDbFile<Equation>("/Task2/dbEquations.json", out string equationsDbFilePath);
+    if (ViewData["Users"] is List<User> usrList)
+    {
+        ViewData["User"] = usrList.Find(user => user.IsLoggedIn);
+    }
+}
+
+@if (Model.ViewData["Users"] is List<User> userList)
+{
+    <p>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#userCollapse" role="button" aria-expanded="false" aria-controls="userCollapse">
+            Show Users
+        </a>
+    </p>
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse" id="userCollapse">
+                <div class="card card-body">
+                    Total Users: @userList.Count <br/>
+                    LoggedIn Users: @userList.FindAll(user => user.IsLoggedIn).Count<br/>
+                    @if (@ViewData["User"] is User currentUser)
+                    {
+                        var userInfo = "Current user: #" + currentUser.Id + " " + currentUser.Name;
+                        @userInfo
+                    }
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Answers</th>
+                            <th scope="col">Logged In</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var user in userList)
+                        {
+                            <tr>
+                                <th scope="row">@user.Id</th>
+                                <td>@user.Name</td>
+                                <td>
+                                    @foreach (var kvPair in @user.Answers)
+                                    {
+                                        @kvPair.Key
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        var value = user.IsLoggedIn ? "logout" : "login";
+                                        var buttonColor = user.IsLoggedIn ? "danger" : "success";
+                                    }
+                                    <form method="post" enctype="multipart/form-data">
+                                        <button type="submit" class="btn btn-@buttonColor" name="login" value="@value-@user.Id">@value.ToUpper()</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (Model.ViewData["Equations"] is List<Equation> equationList && Model.ViewData["User"] is User loggedUser)
+{
+    <p>
+        <a class="btn btn-primary" data-bs-toggle="collapse" href="#equationCollapse" role="button" aria-expanded="false" aria-controls="equationCollapse">
+            Show Equations
+        </a>
+    </p>
+    <div class="row">
+        <div class="col">
+            <div class="collapse multi-collapse" id="equationCollapse">
+                <div class="card card-body">
+                    Total Equations: @equationList.Count <br/>
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Equation</th>
+                            <th scope="col">Your Choice</th>
+                            <th scope="col">Result</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var equation in equationList)
+                        {
+                            var idExists = loggedUser.Answers.Keys.Contains(equation.Id);
+                            <tr>
+                                <th scope="row">@equation.Id</th>
+                                <td>@equation.CompileExpression()</td>
+                                <td>
+                                    @if (!loggedUser.Answers.Keys.Contains(equation.Id))
+                                    {
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <form method="post" enctype="multipart/form-data">
+                                                    <button type="submit" class="btn btn-primary" name="answer" value="@loggedUser.Id-@equation.Id-true">YES</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-3">
+                                                <form method="post" enctype="multipart/form-data">
+                                                    <button type="submit" class="btn btn-primary" name="answer" value="@loggedUser.Id-@equation.Id-false">NO</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (idExists)
+                                        {
+                                            @loggedUser.Answers[equation.Id]
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @{
+                                        if (idExists)
+                                        {
+                                            var result = loggedUser.Answers[equation.Id].Equals(equation.Evaluate()) ? "OK" : "FAILED";
+                                            @result
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

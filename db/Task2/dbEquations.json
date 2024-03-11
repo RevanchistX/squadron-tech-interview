@@ -1,0 +1,1 @@
+[{"Id":1,"FirstItem":10,"Operand":"*","SecondItem":3,"Result":20},{"Id":2,"FirstItem":2,"Operand":"-","SecondItem":9,"Result":-7},{"Id":3,"FirstItem":4,"Operand":"\u002B","SecondItem":6,"Result":12},{"Id":4,"FirstItem":10,"Operand":"/","SecondItem":5,"Result":3},{"Id":5,"FirstItem":2,"Operand":"*","SecondItem":2,"Result":5}]
