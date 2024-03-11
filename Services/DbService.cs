@@ -7,10 +7,13 @@ public static class DbService
 {
     public static List<T> LoadDbFile<T>(string dbFile, out string filePath)
     {
-        var currentFolder = Directory.GetCurrentDirectory();
-        var dbFolder = currentFolder + "/db";
-        filePath = dbFolder + dbFile;
+        filePath = Directory.GetCurrentDirectory() + "/db" + dbFile;
         var loadedDb = File.ReadAllLines(filePath);
         return JsonSerializer.Deserialize<List<T>>(string.Join(" ", loadedDb));
+    }
+
+    public static void SaveDbFile<T>(string dbFilePath, List<T> dbValue)
+    {
+        File.WriteAllText(dbFilePath, JsonSerializer.Serialize(dbValue));
     }
 }

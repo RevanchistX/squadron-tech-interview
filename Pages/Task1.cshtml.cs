@@ -13,8 +13,7 @@ public class Task1Model : PageModel
         var parsedFile = ParseTask1File(file);
         var currentDb = DbService.LoadDbFile<History>("/Task1/db.json", out string filePath);
         currentDb.Add(parsedFile);
-
-        System.IO.File.WriteAllText(filePath, JsonSerializer.Serialize(currentDb));
+        DbService.SaveDbFile(filePath, currentDb);
         ViewData["citiesHistory"] = currentDb;
     }
 
