@@ -3,7 +3,7 @@ using Squadron.DTO.Task1;
 
 namespace Squadron.Services;
 
-public class DBService
+public static class DbService
 {
     public static List<T> LoadDbFile<T>(string dbFile, out string filePath)
     {

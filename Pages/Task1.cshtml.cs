@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Squadron.DTO;
 using Squadron.DTO.Task1;
 using Squadron.Services;
 
@@ -12,7 +11,7 @@ public class Task1Model : PageModel
     {
         if (file == null) return;
         var parsedFile = ParseTask1File(file);
-        var currentDb = DBService.LoadDbFile<History>("/Task1/db.json", out string filePath);
+        var currentDb = DbService.LoadDbFile<History>("/Task1/db.json", out string filePath);
         currentDb.Add(parsedFile);
 
         System.IO.File.WriteAllText(filePath, JsonSerializer.Serialize(currentDb));

@@ -1,9 +1,11 @@
 ﻿@page
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using Squadron.DTO.Task1
+@using Squadron.Services
 @model Task1Model
 @{
     ViewData["Title"] = "Squadron Task 1";
+    ViewData["citiesHistory"] = DbService.LoadDbFile<History>("/Task1/db.json", out string citiesDbFilePath);
 }
 <div class="text-center">
     <h1 class="display-4">File Upload</h1>
