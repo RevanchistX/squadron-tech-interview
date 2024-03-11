@@ -17,7 +17,7 @@ public class Task1Model() : PageModel
         var parsedFile = ParseTask1File(file);
         var currentFolder = Directory.GetCurrentDirectory();
         var dbFolder = currentFolder + "/db";
-        var task1Db = dbFolder + "/task1db.json";
+        var task1Db = dbFolder + "/Task1/db.json";
         var loadedDb = System.IO.File.ReadAllLines(task1Db);
         var currentDb = JsonSerializer.Deserialize<List<History>>(string.Join(" ", loadedDb));
         currentDb.Add(parsedFile);

@@ -28,7 +28,7 @@
 
     @foreach (var history in orderedHistory)
     {
-        var fullName = history.FileName + "@" + history.Date.ToFileTime() + "(" + history.Date.ToFileTime() + ")";
+        var fullName = history.FileName + "@" + history.Date;
         if (history.Cities is { } cities)
         {
             @fullName
