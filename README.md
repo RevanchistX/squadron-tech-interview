@@ -19,3 +19,4 @@ Corners cut:
 1. The [Database](db/Task1/db.json) emulates MongoDB behaviour, saving and storing data to JSON.
 2. Grid based preview not implemented.
 3. No Frontend framework is used.
+4. No Delete functionality. Reset database as ```[]``` to start from scratch.
