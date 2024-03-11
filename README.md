@@ -16,7 +16,7 @@
 3. Preview the history of file uploads and the data inside each file.
 
 Corners cut: 
-1. The [Database](db/Task1/db.json) emulates MongoDB behaviour, saving and storing data to JSON.
+1. The [Database](db/Task1/db.json) emulates NoSQL behaviour, saving and storing data to JSON.
 2. Grid based preview not implemented.
 3. No Frontend framework is used.
 4. No Delete functionality. 
@@ -29,7 +29,7 @@ Corners cut:
 
 Corners cut:
 1. No authentication.
-2. [User Db](db/Task2/dbUsers.json) and [Equations Db](db/Task2/dbEquations.json) emulate MongoDB behaviour, saving and storing data to JSON.
+2. [User Db](db/Task2/dbUsers.json) and [Equations Db](db/Task2/dbEquations.json) emulate NoSQL behaviour, saving and storing data to JSON.
 3. No Frontend framework is used. 
 4. No Delete functionality. 
 > Refresh databases by copying [User Fresh Db](db/Task2/fresh/dbUsers.json) and [Equations Fresh Db](db/Task2/fresh/dbEquations.json)
