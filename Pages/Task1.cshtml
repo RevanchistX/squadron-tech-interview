@@ -1,0 +1,49 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Squadron.DTO.Task1
+@model Task1Model
+@{
+    ViewData["Title"] = "Squadron Interview";
+}
+<div class="text-center">
+    <h1 class="display-4">File Upload</h1>
+</div>
+<div class="container">
+    <div class="mb-3 mt-3">
+        <form method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Upload File</label>
+                <input type="file" name="file" class="form-control" accept=".txt">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+@if (Model.ViewData["citiesHistory"] is List<History> historyList)
+{
+    var orderedHistory = historyList.OrderByDescending(history => history.Date).ToList();
+
+
+    @foreach (var history in orderedHistory)
+    {
+        var fullName = history.FileName + "@" + history.Date.ToFileTime() + "(" + history.Date.ToFileTime() + ")";
+        if (history.Cities is { } cities)
+        {
+            @fullName
+            @foreach (var city in cities)
+            {
+                <div class="row">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                             style="width: @city.Number%; background-color: @city.Color;"
+                             aria-valuenow="@city.Number" aria-valuemin="0" aria-valuemax="100">
+                            @city.Color - @city.Number% - @city.CityName
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
