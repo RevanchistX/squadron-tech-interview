@@ -1,0 +1,4 @@
+﻿blue, 33, Tetovo
+green, 28, Ohrid
+red, 40, Skopje
+red, 43, Gevgelija

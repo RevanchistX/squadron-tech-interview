@@ -2,27 +2,20 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Squadron.DTO;
 using Squadron.DTO.Task1;
+using Squadron.Services;
 
 namespace squadron.Pages;
 
 public class Task1Model : PageModel
 {
-    public void OnGet()
-    {
-    }
-
     public void OnPost(IFormFile? file)
     {
         if (file == null) return;
         var parsedFile = ParseTask1File(file);
-        var currentFolder = Directory.GetCurrentDirectory();
-        var dbFolder = currentFolder + "/db";
-        var task1Db = dbFolder + "/Task1/db.json";
-        var loadedDb = System.IO.File.ReadAllLines(task1Db);
-        var currentDb = JsonSerializer.Deserialize<List<History>>(string.Join(" ", loadedDb));
+        var currentDb = DBService.LoadDbFile<History>("/Task1/db.json", out string filePath);
         currentDb.Add(parsedFile);
 
-        System.IO.File.WriteAllText(task1Db, JsonSerializer.Serialize(currentDb));
+        System.IO.File.WriteAllText(filePath, JsonSerializer.Serialize(currentDb));
         ViewData["citiesHistory"] = currentDb;
     }
 
