@@ -33,6 +33,4 @@ Corners cut:
 3. No Frontend framework is used. 
 4. No Delete functionality. 
 > Refresh databases by copying [User Fresh Db](db/Task2/fresh/dbUsers.json) and [Equations Fresh Db](db/Task2/fresh/dbEquations.json)
-5. No custom user input implemented.
-6. No game rounds implemented.
-7. Buttons refresh the page on each submit.
+5. Bug in equation #2 due to how current implementation works (Always returns OK)

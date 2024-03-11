@@ -2,16 +2,19 @@
   {
     "Id": 1,
     "Name": "Viktor",
-    "IsLoggedIn": true
+    "IsLoggedIn": true,
+    "Answers": {}
   },
   {
     "Id": 2,
     "Name": "Petko",
-    "IsLoggedIn": false
+    "IsLoggedIn": false,
+    "Answers": {}
   },
   {
     "Id": 3,
     "Name": "Trajko",
-    "IsLoggedIn": false
+    "IsLoggedIn": false,
+    "Answers": {}
   }
 ]

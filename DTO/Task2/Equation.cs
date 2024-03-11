@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using Squadron.Services;
 
 namespace Squadron.DTO.Task2;
 
@@ -15,6 +16,12 @@ public class Equation(int id, double firstItem, string operand, double secondIte
     public double Evaluate()
     {
         return Convert.ToDouble(new DataTable().Compute(FirstItem + Operand + SecondItem, null));
+    }
+
+    public static bool EvaluateById(int id, double value)
+    {
+        var equations = DbService.LoadDbFile<Equation>("/Task2/dbEquations.json", out string equationsDbFilePath);
+        return equations.Find(eq => eq.Id == id).Evaluate().Equals(value);
     }
 
     public string CompileExpression()
