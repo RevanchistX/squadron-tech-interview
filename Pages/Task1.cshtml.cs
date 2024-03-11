@@ -5,7 +5,7 @@ using Squadron.DTO.Task1;
 
 namespace squadron.Pages;
 
-public class Task1Model() : PageModel
+public class Task1Model : PageModel
 {
     public void OnGet()
     {
